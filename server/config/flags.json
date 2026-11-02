@@ -1,0 +1,4 @@
+{
+  "assistantPrompts": { "enabled": true, "rolloutPercent": 100 },
+  "businessDeals": { "enabled": true, "rolloutPercent": 100 }
+}

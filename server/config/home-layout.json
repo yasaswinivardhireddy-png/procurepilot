@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "ttlSeconds": 60,
+  "layouts": {
+    "buyer": ["greeting", "pendingApprovals", "budgetSummary", "buyAgain", "assistantPrompts", "deals", "categories", "recentOrders"],
+    "approver": ["greeting", "pendingApprovals", "budgetSummary", "recentOrders", "assistantPrompts", "deals", "categories"]
+  },
+  "roleLayouts": {
+    "REQUESTER": "buyer",
+    "MANAGER": "approver",
+    "IT_ADMIN": "approver",
+    "FINANCE": "approver"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "version": 4,
+  "roleOrder": ["MANAGER", "IT_ADMIN", "FINANCE"],
+  "escalationRole": "FINANCE",
+  "rules": [
+    {
+      "id": "manager-above-25k",
+      "description": "Orders of ₹25,000 or more need the cost-center manager",
+      "when": { "totalAtLeast": 2500000 },
+      "requireRole": "MANAGER"
+    },
+    {
+      "id": "bulk-quantity",
+      "description": "A single line of 200 or more units needs the cost-center manager",
+      "when": { "lineQtyAtLeast": 200 },
+      "requireRole": "MANAGER"
+    },
+    {
+      "id": "it-hardware",
+      "description": "IT hardware worth ₹5,000 or more needs IT admin sign-off",
+      "when": { "categoryIn": ["IT & Electronics"], "totalAtLeast": 500000 },
+      "requireRole": "IT_ADMIN"
+    },
+    {
+      "id": "finance-above-2l",
+      "description": "Orders of ₹2,00,000 or more need Finance",
+      "when": { "totalAtLeast": 20000000 },
+      "requireRole": "FINANCE"
+    },
+    {
+      "id": "over-budget",
+      "description": "Orders above the remaining cost-center budget need Finance",
+      "when": { "exceedsBudget": true },
+      "requireRole": "FINANCE"
+    }
+  ]
+}

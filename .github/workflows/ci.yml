@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  services:
+    name: Services, SDK and tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+      - name: Install type-checking tools
+        run: npm ci
+      - name: Type-check
+        run: npm run typecheck
+      - name: Unit, API, assistant and chaos tests
+        run: npm test
+      - name: Load test with budget-ledger audit (quick)
+        run: npm run loadtest -- --quick
+      - name: Chaos test, 30% of writes failing (quick)
+        run: npm run chaos -- --quick
+
+  mobile:
+    name: Mobile app (type-check, tests, web bundle)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+    env:
+      EXPO_NO_TELEMETRY: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22.x
+      - run: npm ci
+      - name: Type-check
+        run: npm run typecheck
+      - name: Component tests
+        run: npm test -- --ci
+      - name: Production web bundle
+        run: npx expo export --platform web

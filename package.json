@@ -1,0 +1,24 @@
+{
+  "name": "procurepilot",
+  "version": "1.0.0",
+  "description": "Agentic B2B mobile shopping: a React Native app, a typed SDK and Node.js microservices with approval workflows, server-driven UI and an offline-safe checkout.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server/src/main.ts",
+    "test": "node --disable-warning=ExperimentalWarning --test \"tests/**/*.test.ts\"",
+    "typecheck": "tsc -p tsconfig.json",
+    "loadtest": "node --disable-warning=ExperimentalWarning scripts/loadtest.ts",
+    "chaos": "node --disable-warning=ExperimentalWarning scripts/chaos.ts",
+    "build:web": "npm --prefix mobile run build:web",
+    "screenshots": "node --disable-warning=ExperimentalWarning scripts/screenshots.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "typescript": "~6.0.3"
+  }
+}
